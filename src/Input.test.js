@@ -54,5 +54,17 @@ describe('render', () => {
   });
 });
 
-describe('render', () => {});
-test('', () => {});
+describe('redux props', () => {
+  test('has success piece of state as props', () => {
+    const success = true;
+    const wrapper = setup({ success });
+    const successProp = wrapper.instance().props.success;
+    expect(successProp).toBe(success);
+  });
+
+  test('`guessWord` action creator', () => {
+    const wrapper = setup();
+    const guessWordProp = wrapper.instance().props.guessWord;
+    expect(guessWordProp).toBeInstanceOf(Function);
+  });
+});
