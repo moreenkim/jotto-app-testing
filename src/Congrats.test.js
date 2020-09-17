@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 //import EnzymeAdapter from 'enzyme-adapter-react-16';
 
 import Congrats from './Congrats';
-import { findByTestAttr, checkProps } from '../test/testUtils';
+import { findByTestAttr, checkProps } from './test/testUtils';
 
 //Enzyme.configure({ adapter: new EnzymeAdapter() });
 
