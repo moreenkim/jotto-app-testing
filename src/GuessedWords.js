@@ -1,18 +1,11 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
 
 const GuessedWords = (props) => {
-<<<<<<< HEAD
-  return <div />;
-};
-
-GuessedWords.PropTypes = {};
-=======
   let contents;
   if (props.guessedWords.length === 0) {
     contents = (
-      <span data-test="guess-instructions">Try to guess the secret word</span>
+      <span data-test="guess-instructions">Try to guess the secret word!</span>
     );
   } else {
     const guessedWordsRows = props.guessedWords.map((word, index) => (
@@ -47,6 +40,5 @@ GuessedWords.propTypes = {
     })
   ).isRequired,
 };
->>>>>>> e1cc62b8b13d7ddf62b94168d82b9046de4aa4e3
 
 export default GuessedWords;
