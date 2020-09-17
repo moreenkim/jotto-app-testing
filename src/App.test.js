@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { storeFactory } from './test/testUtils';
-import App from './App';
+import App, { UnconnectedApp } from './App';
 
 /**
  * @function setup
@@ -42,7 +42,7 @@ describe('redux properties', () => {
     expect(getSecretWordProp).toBeInstanceOf(Function);
   });
 });
-//let getSecretWord;
+
 test('`getSecretWord` runs on App mount', () => {
   const getSecretWordMock = jest.fn();
 
@@ -52,10 +52,7 @@ test('`getSecretWord` runs on App mount', () => {
     guessedWords: [],
   };
 
-  const wrapper = shallow({
-    ...props,
-    //getSecretWord,
-  });
+  const wrapper = shallow(<UnconnectedApp {...props} />);
 
   wrapper.instance().componentDidMount();
 
