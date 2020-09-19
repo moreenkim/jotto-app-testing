@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { findByTestAttr, storeFactory } from './test/testUtils';
-import Input from './Input';
+import Input, { UnconnectedInput } from './Input';
 
 const setup = (initialState = {}) => {
   const store = storeFactory(initialState);
@@ -54,5 +54,50 @@ describe('render', () => {
   });
 });
 
-describe('render', () => {});
-test('', () => {});
+describe('redux props', () => {
+  test('has success piece of state as props', () => {
+    const success = true;
+    const wrapper = setup({ success });
+    const successProp = wrapper.instance().props.success;
+    expect(successProp).toBe(success);
+  });
+
+  test('`guessWord` action creator', () => {
+    const wrapper = setup();
+    const guessWordProp = wrapper.instance().props.guessWord;
+    expect(guessWordProp).toBeInstanceOf(Function);
+  });
+});
+
+describe('`guessWord` action creator call', () => {
+  let guessWordMock;
+  let wrapper;
+  const guessedWord = 'train';
+  beforeEach(() => {
+    guessWordMock = jest.fn();
+
+    const props = {
+      guessWord: guessWordMock,
+    };
+    wrapper = shallow(<UnconnectedInput {...props} />);
+
+    wrapper.instance().inputBox.current = { value: guessedWord };
+
+    const submitButton = findByTestAttr(wrapper, 'submit-button');
+    submitButton.simulate('click', { preventDefault() {} });
+  });
+  test('calls `guessWord` when button is clicked', () => {
+    const guessWordCallCount = guessWordMock.mock.calls.length;
+
+    expect(guessWordCallCount).toBe(1);
+  });
+
+  test('call `guessword` with input value as arguement', () => {
+    const guessWordArg = guessWordMock.mock.calls[0][0];
+    expect(guessWordArg).toBe(guessedWord);
+  });
+
+  test('input box clears on submit', () => {
+    expect(wrapper.instance().inputBox.current.value).toBe('');
+  });
+});
